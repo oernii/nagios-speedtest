@@ -172,7 +172,7 @@ function float_cond()
 # to speedtest on your system. On mine it is /usr/local/bin 
 # Ensure to leave the last slash off!
 # You MUST define this or the script will not run!
-STb=
+STb=/opt/bin
 
 # Set up the variables to take the arguments
 DLw=
@@ -185,6 +185,13 @@ PerfData=
 MaxDL=
 MaxUL=
 debug=
+servers="--server 34851 --server 31775 --server 40253 --server 11213 --server 44958"
+#34851) ENAHOST (Bratislava, Slovakia) [6.40 km]
+#31775) ANTIK Telecom (Bratislava, Slovakia) [6.40 km]
+#40253) SWAN, a.s. (Bratislava, Slovakia) [6.40 km]
+#11213) O2 Business Services, a.s. (Bratislava, Slovakia) [6.40 km]
+#44958) zoznam s.r.o. (Bratislava, Slovakia) [6.40 km]
+
 
 # Retrieve the arguments using getopts
 while getopts "hw:c:W:C:l:s:pm:M:vV" OPTION
@@ -239,7 +246,8 @@ then
 fi
 
 # Check for empty arguments and exit to usage if found
-if  [[ -z $DLw ]] || [[ -z $DLc ]] || [[ -z $ULw ]] || [[ -z $ULc ]] || [[ -z $Loc ]] || [[ -z $SEs ]]
+#if  [[ -z $DLw ]] || [[ -z $DLc ]] || [[ -z $ULw ]] || [[ -z $ULc ]] || [[ -z $Loc ]] || [[ -z $SEs ]]
+if  [[ -z $DLw ]] || [[ -z $DLc ]] || [[ -z $ULw ]] || [[ -z $ULc ]] || [[ -z $Loc ]] 
 then
 	usage
 	exit 3
@@ -301,12 +309,13 @@ if [ "$Loc" == "e" ]; then
 	if [ "$debug" == "TRUE" ]; then
 		echo "External Server defined"
 	fi
-	command=$($STb/speedtest --server=$SEs --simple)
+	command=$($STb/speedtest-cli --simple)
+	#command=$($STb/speedtest-cli --server=$SEs $servers --simple)
 elif [ "$Loc" == "i" ]; then
 	if [ "$debug" == "TRUE" ]; then
 		echo "Internal Server defined"
 	fi
-	command=$($STb/speedtest --mini=$SEs --simple)
+	command=$($STb/speedtest-cli --mini=$SEs --simple)
 else
 	if [ "$debug" == "TRUE" ]; then
 		echo "We should never get here as we checked the contents of Location variable earlier!"
