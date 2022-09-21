@@ -309,13 +309,13 @@ if [ "$Loc" == "e" ]; then
 	if [ "$debug" == "TRUE" ]; then
 		echo "External Server defined"
 	fi
-	command=$($STb/speedtest-cli --simple)
+	command=$($STb/speedtest-cli --secure --simple)
 	#command=$($STb/speedtest-cli --server=$SEs $servers --simple)
 elif [ "$Loc" == "i" ]; then
 	if [ "$debug" == "TRUE" ]; then
 		echo "Internal Server defined"
 	fi
-	command=$($STb/speedtest-cli --mini=$SEs --simple)
+	command=$($STb/speedtest-cli --secure --mini=$SEs --simple)
 else
 	if [ "$debug" == "TRUE" ]; then
 		echo "We should never get here as we checked the contents of Location variable earlier!"
